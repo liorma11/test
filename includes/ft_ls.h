@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/18 12:29:40 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/19 14:35:40 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,25 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
+
+typedef struct		s_lso
+{
+	int				recurse;
+	int				reverse;
+	int				all;
+	int				longform;
+	int				timemod;
+}					t_lso;
+
+typedef struct		s_lsi
+{
+	int				ai;
+	t_lso			*opts;
+	int				nof;
+}					t_lsi;
+
+t_lsi				*init(int ac, char **av);
+t_lso				*getopts(int ac, char **av, t_lsi *ls);
+// delet this
+void unit(t_lsi *ls);
 #endif

@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/18 12:42:32 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/19 15:00:18 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,23 @@ void ds(char *name)
 	//ft_putendl("time to dirwalk.");
 	printf("%lld %s\n", buf.st_size, name);
 }
-
-int	main(int ac, char **av)
+void runold(int ac, char **av)
 {
-	if (ac == 1)
+ 	if (ac == 1)
 		ds(".");
 	else
 		while (--ac > 0)
 			ds(*++av);
+}
+
+// currently malloced: ls, ls->opts /
+//
+int	main(int ac, char **av)
+{
+	t_lsi *ls;
+
+	ls = init(ac, av);
+	//unit(ls);
+	
 	return (0);
 }
