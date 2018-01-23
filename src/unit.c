@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 12:54:51 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/22 21:46:00 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/23 12:12:04 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ void testfile(t_lsi *ls)
 	//while (t->next)
 	//{
 		f = t->content;
-		printf("FILE CONTENT:\nname: %s, path: %s, exists: %d\n", f->name, f->path, f->exists);
-		printf("depth count: %d, owner: %s, group: %s\n", f->dc, f->owner, f->group);
-		printf("perm: %d, maj: %d, min: %d\n\n", f->permission, f->maj, f->min);
+		if (f->exists)
+		{
+			printf("FILE CONTENT:\nname: %s, path: %s, exists: %d\n", f->name, f->path, f->exists);
+			printf("depth count: %d, owner: %s, group: %s\n", f->dc, f->owner, f->group);
+			printf("perm: %d, maj: %d, min: %d\n\n", f->permission, f->maj, f->min);
+		}
 	//	t = t->next;
 	//}
 }
@@ -36,5 +39,5 @@ void testfile(t_lsi *ls)
 void unit(t_lsi *ls)
 {
 	testopts(ls);
-	testfile(ls);
+	//testfile(ls);
 }
