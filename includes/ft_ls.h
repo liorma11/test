@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/25 20:45:50 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/26 12:54:07 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct			s_lsl
 	char				*group;
 	int					permission;
 	t_stat				stat;
-	struct	s_lsl		*n;
-	struct	s_lsl		*p;
 }						t_lsl;
 
 typedef struct			s_lso
@@ -66,13 +64,15 @@ typedef struct			s_lso
 typedef struct			s_ls
 {
 	t_lso				opts;
-	t_lsl				*f;
-	t_lsl				*d;
+	t_list				*errors;
+	t_list				*items;
+	t_list				*dirs;
 }						t_ls;
 
 void create_ls(t_ls *ls);
 void parse(t_ls *ls, char **av);
 void eh_illegal(char opt);
+void lsl_add(t_lsl *target, t_lsl item);
 // delet this
 void unit(t_ls *ls);
 #endif
