@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puterrv.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/18 11:22:25 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/25 18:04:02 by bvautour         ###   ########.fr       */
+/*   Created: 2018/01/25 17:53:59 by bvautour          #+#    #+#             */
+/*   Updated: 2018/01/25 18:22:07 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_ls.h>
 
-void	ft_puterrv(char *str, char *var)
+void	eh_illegal(char opt)
 {
-	char *err;
-	char *ferrno;
-
-	err = ft_strjoin(str, var);
-	ferrno = ft_strjoin(": ", strerror(errno));
-	ft_puterr(ft_strjoin(err, ferrno));
+	ft_putstr_fd("ls: illegal option -- ", 2);
+	ft_putchar_fd(opt, 2);
+	ft_putchar_fd('\n', 2);
+	ft_puterr("usage: ls [-Rralt] [file ...]");
+	exit(1);
 }

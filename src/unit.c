@@ -6,38 +6,14 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 12:54:51 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/23 12:12:04 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/25 17:52:31 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-void testopts(t_lsi *ls)
+void unit(t_ls *ls)
 {
-	printf("FLAGS: \nrecurse: %d\nreverse: %d\nall: %d\nlong: %d\ntime: %d\n\n", ls->opts->recurse,ls->opts->reverse, ls->opts->all, ls->opts->longform, ls->opts->timemod);
-}
-
-void testfile(t_lsi *ls)
-{
-	t_list *t;
-	t_file *f;
-
-	t = ls->folders;
-	//while (t->next)
-	//{
-		f = t->content;
-		if (f->exists)
-		{
-			printf("FILE CONTENT:\nname: %s, path: %s, exists: %d\n", f->name, f->path, f->exists);
-			printf("depth count: %d, owner: %s, group: %s\n", f->dc, f->owner, f->group);
-			printf("perm: %d, maj: %d, min: %d\n\n", f->permission, f->maj, f->min);
-		}
-	//	t = t->next;
-	//}
-}
-
-void unit(t_lsi *ls)
-{
-	testopts(ls);
-	//testfile(ls);
+	printf("\nUNIT TEST\n");
+	printf("options selected:\nR: %d\nr: %d\na: %d\nl: %d\nt: %d\n", ls->opts.recursive, ls->opts.reverse, ls->opts.all, ls->opts.longform, ls->opts.timemod);	
 }
