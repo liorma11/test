@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/26 13:55:44 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/29 19:25:38 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ void	opts(t_lso *opts, char *av)
 }
 
 
-void	create_file(t_lsl *f, char *path)
+void	create_file(t_ls *ls, t_lsl *f, char *path)
 {
 	f->name = path;
 	f->path = path;
 	f->exists =	(lstat(path, &f->stat) != -1);
 	f->type = 0;
+	f->ls = ls;
 	f->type = f->stat.st_mode & S_IFMT;
 	f->owner = (getpwuid(f->stat.st_uid)) ?
 		ft_strdup(getpwuid(f->stat.st_uid)->pw_name) :
@@ -62,13 +63,13 @@ void	parse(t_ls *ls, char **av)
 	if (*av == '\0')
 	{
 		//printf("searching .\n");
-		create_file(&f, ".");
+		create_file(ls, &f, ".");
 		ft_lstadd(&(ls->dirs), ft_lstnew(&f, sizeof(t_lsl)));
 	}
 	while (*av)
 	{
 		//printf("searching for: %s\n", *av);
-		create_file(&f, *av++);
+		create_file(ls, &f, *av++);
 		if (!f.exists)
 		{
 			//printf("file %s does not exist with a value of %d add to errors list\n", f.name, f.exists);

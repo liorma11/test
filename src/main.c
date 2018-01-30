@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/29 15:24:13 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:48:34 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,18 @@ void	handle(t_list *list, int is_dir)
 		}
 		else
 		{
-			printf("itemput\n");
-			//itemput(trav);
+			//printf("itemput\n");
+			output_item(trav);
 		}
 		trav = trav->next;
 	}
 	if (list)
 	{
-		printf("list exists time to free with listdel\n");
+		//printf("list exists time to free with listdel\n");
 	}
 
 }
 
-void	*get_name(t_list *elem)
-{
-	t_lsl *file;
-
-	file = elem->content;
-	return (file->name);
-}
-
-int		cmp_asc(void *a, void *b)
-{
-	return (ft_strcmp((char *)a, (char *)b) < 0);
-}
 
 int	main(int ac, char **av)
 {
@@ -64,6 +52,6 @@ int	main(int ac, char **av)
 		printf("all is called\n");
 	handle(ls.items, 0);
 	handle(ls.dirs, 1);
-	//unit(&ls);
+	unit(&ls);
 	return (0);
 }
