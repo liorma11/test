@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 18:52:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 18:46:09 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 20:17:51 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	*get_time(t_list *elem)
 		return (&file->stat.st_ctime);*/
 	return (&file->stat.st_mtime);
 }
+
 
 void	pdate(t_list *elem)
 {
@@ -65,21 +66,44 @@ void	strsp(char *str, int max_space)
 	ft_putstr("  ");
 }
 
-void	plink(int value, int max_space)
+void	pint(int value, int max_space)
 {
-	int		spaces;
-	int		len;
-	char	*str;
+	int spaces;
 
-	str = ft_itoa(value);
-	len = ft_strlen(str);
-	if (str)
-		free(str);
-	spaces = max_space - len;
+	spaces = max_space - ft_numlen(value);
 	while (spaces-- > 0)
 		ft_putchar(' ');
 	ft_putnbr(value);
 	ft_putstr(" ");
+}
+
+void	psize(t_lsl *file)
+{
+	int		minor_spaces;
+	int		major_spaces;
+
+	minor_spaces = ft_numlen(file->min);
+	major_spaces = ft_numlen(file->maj);
+	if (file->type == ICHAR || file->type == IBLOCK)
+	{
+		ft_putchar(' ');
+		while (major_spaces < file->spaces.maj--)
+			ft_putchar(' ');
+		ft_putnbr(file->maj);
+		ft_putstr(", ");
+		while (minor_spaces < file->spaces.min--)
+			ft_putchar(' ');
+		ft_putnbr(file->min);
+		ft_putchar(' ');
+	}
+	else
+	{
+		if ((file->spaces.min > 0 || file->spaces.maj > 0))
+			pint(file->stat.st_size,
+				file->spaces.min + file->spaces.maj + 3);
+		else
+			pint(file->stat.st_size, file->spaces.size);
+	}
 }
 
 void	perm_exec(t_lsl *file, int mode_a, int mode_b, char *def)
@@ -129,13 +153,13 @@ void	output_item(t_list *list)
 		//permissions !DONE
 		permissions(f);
 		//number of links !DONE
-		plink(f->stat.st_nlink, f->spaces.link);
+		pint(f->stat.st_nlink, f->spaces.link);
 		//owner
 		strsp(f->owner, f->spaces.owner);
 		//group
 		strsp(f->group, f->spaces.group);
 		//size NEED TO HANDLE MIN AND MAJ before.... size.
-		//psize(f);
+		psize(f);
 		//time
 		pdate(list);
 		//name
@@ -143,7 +167,7 @@ void	output_item(t_list *list)
 		if (f->type == ILINK)
 		{
 			ft_putstr(" -> ");
-			ft_putstr("remember to put the link name dummy");
+			ft_putstr(f->link);
 		}
 		ft_putchar('\n');
 		//printf("\nEND OF OUTPUT\n");	

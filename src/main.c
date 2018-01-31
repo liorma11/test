@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 19:05:10 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 19:41:48 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int ac, char **av)
 	t_ls ls;
 	create_ls(&ls);
 	parse(&ls, av);
+	ls.follow = 0;
 	ft_lstsort(&(ls.errors), &cmp_asc, &get_name);
 	lssort(&ls, &ls.dirs);
 	lssort(&ls, &ls.items);

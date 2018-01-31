@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 19:05:24 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 20:15:53 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,27 @@ void	space_init(t_lss *s)
 	s->link = 0;
 	s->group = 0;
 	s->date = 0;
+	s->size = 0;
 	s->owner = 0;
 	s->maj = 0;
 	s->min = 0;
+	s->total = 0;
 }
 
 void	set_symlink(t_lsl *f)
 {
 	f->link = NULL;
-	//
+	if (f->ls->follow && f->type == ILINK
+			&& !f->ls->opts.longform
+			&& !f->ls->opts.timemod)
+	{
+		printf("follow is true, type is link, and optinos long and time are not on\n");
+	}
+	if (f->type == ILINK)
+	{
+		f->link = ft_strnew(257);
+		readlink(f->path, f->link, 256);	
+	}
 }
 void	create_file(t_ls *ls, t_lsl *f, char *path)
 {
@@ -70,6 +82,10 @@ void	create_file(t_ls *ls, t_lsl *f, char *path)
 		ft_strdup(getgrgid(f->stat.st_gid)->gr_name) :
 		ft_itoa(f->stat.st_gid);
 	f->permission = 1;
+	f->maj = (f->type == ICHAR || f->type == IBLOCK) ?
+		(int)MAJ(f->stat.st_rdev) : 0;
+	f->min = (f->type == ICHAR || f->type == IBLOCK) ?
+		(int)MIN(f->stat.st_rdev) : 0;
 }
 
 void	parse(t_ls *ls, char **av)

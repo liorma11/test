@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 18:53:09 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 20:15:38 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <errno.h>
 # define NLIMIT 1024
 # define MONTH(m)	((m) * 30 * 24 * 60 * 60)
+# define MAJ(m)	((__int32_t)(((__uint32_t)(m)) >> 24) & 0xff)
+# define MIN(m)	((__int32_t)((m) & 0xffffff))
 typedef struct stat	t_stat;
 typedef struct dirent	t_dirent;
 
@@ -70,7 +72,8 @@ typedef struct			s_lss
 	int					date;
 	int					size;
 	int					maj;
-	int					min;	
+	int					min;
+	long long			total;	
 }						t_lss;
 
 typedef struct			s_lsl

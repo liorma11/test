@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:28:07 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 19:03:52 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 20:19:50 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 int		link_size(t_list *l)
 {
-	char	*str;
 	int		len;
 	t_lsl	*f;
 
 	f = l->content;
-	str = ft_itoa(f->stat.st_nlink);
-	len = ft_strlen(str);
-	if (str)
-		free(str);
+	len = ft_numlen(f->stat.st_nlink);
 	return (len);
 }
 int	owner_size(t_list *elem)
