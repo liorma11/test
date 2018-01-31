@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 20:15:38 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 12:22:31 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,12 @@ typedef struct			s_lss
 
 typedef struct			s_lsl
 {
+	int					root;
 	char				*name;
 	char				*link;
 	char				*path;
 	int					exists;
+	int					err;
 	int					type;
 	char				*owner;
 	char				*group;
@@ -90,11 +92,15 @@ typedef struct			s_lsl
 	t_ls				*ls;
 	t_lss				spaces;
 	// add files at some point
+	DIR					*dir;
+	t_list				*files;
 	int					maj;
 	int					min;
 }						t_lsl;
 
 void					create_ls(t_ls *ls);
+void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path);
+void	output_dir(t_list *elem);
 void					parse(t_ls *ls, char **av);
 void					eh_illegal(char opt);
 void	ft_ennoent(t_lsl *f);

@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 11:24:06 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 12:26:28 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	set_symlink(t_lsl *f)
 		readlink(f->path, f->link, 256);	
 	}
 }
-void	create_file(t_ls *ls, t_lsl *f, char *path)
+void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path)
 {
 	t_lss spaces;
 
 	space_init(&spaces);
-	f->name = path;
+	f->name = name;
 	f->path = path;
+	f->files = NULL;
+	f->root = root;
 	f->exists =	(lstat(path, &f->stat) != -1);
 	f->type = 0;
 	f->ls = ls;
@@ -100,13 +102,14 @@ void	parse(t_ls *ls, char **av)
 	if (*av == '\0')
 	{
 		//printf("searching .\n");
-		create_file(ls, &f, ".");
+		create_file(ls, &f, 1, ".", ".");
 		ft_lstadd(&(ls->dirs), ft_lstnew(&f, sizeof(t_lsl)));
 	}
 	while (*av)
 	{
 		//printf("searching for: %s\n", *av);
-		create_file(ls, &f, *av++);
+		create_file(ls, &f, 1, *av, *av);
+		av++;
 		if (!f.exists)
 		{
 			//printf("file %s does not exist with a value of %d add to errors list\n", f.name, f.exists);
