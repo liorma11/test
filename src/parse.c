@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 20:15:53 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 11:24:06 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	set_symlink(t_lsl *f)
 			&& !f->ls->opts.longform
 			&& !f->ls->opts.timemod)
 	{
+		// still need to handle this condition....
 		printf("follow is true, type is link, and optinos long and time are not on\n");
 	}
 	if (f->type == ILINK)

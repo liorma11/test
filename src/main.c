@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 19:41:48 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 11:45:43 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle(t_list *list, int is_dir)
 		if (is_dir)
 		{
 			printf("dirput\n");
-			//dirput(trav);
+			//output_dir(trav);
 		}
 		else
 		{

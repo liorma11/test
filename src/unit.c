@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 12:54:51 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/26 14:10:01 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 11:43:37 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void liststuff(t_list *list)
 	{
 		item = list->content;
 		printf("item name: %s\n", item->name);
+		printf("maj %d, min %d\n", item->spaces.maj, item->spaces.min);
 		if (list->next == NULL)
 			break ;
 		list = list->next;

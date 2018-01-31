@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:28:07 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/30 20:19:50 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 11:33:40 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,64 @@ int	group_size(t_list *elem)
 
 	file = elem->content;
 	return (ft_strlen(file->group));
+}
+
+long long	set_total(t_list *elem)
+{
+	t_lsl		*file;
+	long long	total;
+
+	total = 0;
+	while (elem)
+	{
+		file = elem->content;
+		elem = elem->next;
+		if (file->name[0] != '.' || file->ls->opts.all)
+			total += file->stat.st_blocks;
+	}
+	return (total);
+}
+
+int	min_size(t_list *elem)
+{
+	int		len;
+	t_lsl	*file;
+
+	file = elem->content;
+	if (file->type == ICHAR || file->type == IBLOCK)
+	{
+		len = ft_numlen(file->min);
+		return (len);
+	}
+	return (0);
+}
+
+int	maj_size(t_list *elem)
+{
+	int		len;
+	t_lsl	*file;
+
+	file = elem->content;
+	if (file->type == ICHAR || file->type == IBLOCK)
+	{
+		len = ft_numlen(file->maj);
+		return (len);
+	}
+	return (0);
+}
+
+int		file_size(t_list *elem)
+{
+	t_lsl	*file;
+	int		len;
+
+	file = elem->content;
+	if (file->type != ICHAR && file->type != IBLOCK)
+	{
+		len = ft_numlen(file->stat.st_size);
+		return (len);
+	}
+	return (0);
 }
 
 int		set_spaces(t_list *list, int (func)(t_list *l))
@@ -72,6 +130,9 @@ void	findlargest(t_list *list)
 		f->spaces.link = set_spaces(list, &link_size);
 		f->spaces.owner = set_spaces(list, &owner_size);
 		f->spaces.group = set_spaces(list, &group_size);
+		f->spaces.maj = set_spaces(list, &maj_size);
+		f->spaces.min = set_spaces(list, &min_size);
+		f->spaces.size = set_spaces(list, &file_size);
 		trav = trav->next;
 	}		
 }
