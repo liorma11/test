@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/29 20:48:34 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 19:05:10 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle(t_list *list, int is_dir)
 		}
 		else
 		{
-			//printf("itemput\n");
+			//printf("itemput\n")
 			output_item(trav);
 		}
 		trav = trav->next;
@@ -49,9 +49,12 @@ int	main(int ac, char **av)
 	lssort(&ls, &ls.items);
 	handle(ls.errors, 0);
 	if (ls.items && ls.opts.all)
+	{
 		printf("all is called\n");
+		findlargest(ls.items);
+	}
 	handle(ls.items, 0);
 	handle(ls.dirs, 1);
-	unit(&ls);
+	//unit(&ls);
 	return (0);
 }

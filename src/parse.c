@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/29 19:25:38 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/30 19:05:24 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,35 @@ void	opts(t_lso *opts, char *av)
 	}
 }
 
+void	space_init(t_lss *s)
+{
+	s->link = 0;
+	s->group = 0;
+	s->date = 0;
+	s->owner = 0;
+	s->maj = 0;
+	s->min = 0;
+}
 
+void	set_symlink(t_lsl *f)
+{
+	f->link = NULL;
+	//
+}
 void	create_file(t_ls *ls, t_lsl *f, char *path)
 {
+	t_lss spaces;
+
+	space_init(&spaces);
 	f->name = path;
 	f->path = path;
 	f->exists =	(lstat(path, &f->stat) != -1);
 	f->type = 0;
 	f->ls = ls;
 	f->type = f->stat.st_mode & S_IFMT;
+	set_symlink(f);
+	// maybe delete this sizing init later
+	f->spaces = spaces; 
 	f->owner = (getpwuid(f->stat.st_uid)) ?
 		ft_strdup(getpwuid(f->stat.st_uid)->pw_name) :
 		ft_itoa(f->stat.st_uid);
