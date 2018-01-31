@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:27:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 12:44:02 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:17:45 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	dir_read(t_list *elem)
 	t_dirent	*dirent;
 	t_lsl		new_file;
 	t_lsl		*file;
-
+	
+	//printf("read began\n");
 	file = elem->content;
 	file->dir = opendir(file->path);
 	if (file->type == IDIR && file->dir == NULL)
@@ -66,6 +67,33 @@ void	dir_read(t_list *elem)
 	lssort(file->ls, &(file->files));
 }
 
+void	pdirname(t_list *elem)
+{
+	t_lsl	*file;
+	//WE ENDED HERE NFILES CHANGED TO NOF
+	file = elem->content;
+	if (!((file->ls->nof == 1 && !file->ls->fp) ||
+		(!file->root && !file->ls->opts.recursive) ||
+		(file->ls->opts.all &&
+		!file->files && file->permission)))
+	{
+		if (file->ls->fp)
+			ft_putstr("\n");
+		ft_putstr(file->path);
+		ft_putstr(":\n");
+		file->ls->fp = 1;
+	}
+	if (!file->permission && (file->files ||
+		file->ls->opts.recursive || file->root))
+		ft_putendl("permission error");//ft_ls_errors_no_permission(file);
+	if (file->files && file->ls->opts.longform)
+	{
+		ft_putstr("total ");
+		ft_putnbr(file->spaces.total);
+		ft_putstr("\n");
+	}
+}
+
 void	output_dir(t_list *elem)
 {
 	t_lsl *file;
@@ -75,11 +103,12 @@ void	output_dir(t_list *elem)
 		return ;
 	// need to write this before anything else can happen
 	dir_read(elem);
-	/*file->spaces.total = set_total(file->files);
+	//liststuff(file->files);
+	file->spaces.total = set_total(file->files);
 	if (file->ls->opts.longform)
-		get_max_values(file->files);
-	ft_ls_show_dir_name(elem);
-	if (!file->ls->options.is_all_files)
+		findlargest(file->files);
+	pdirname(elem);
+	/*if (!file->ls->options.is_all_files)
 		ft_lstiter_if(file->files, &ft_ls_show_file, &no_dot_file);
 	else
 		ft_lstiter(file->files, &ft_ls_show_file);

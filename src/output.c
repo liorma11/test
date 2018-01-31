@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 18:52:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 11:26:21 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:37:22 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void	output_item(t_list *list)
 	f = list->content;
 	if (!f->exists)
 		return (ft_ennoent(f));
+	f->ls->fp = 1;
 	if (!f->ls->opts.longform)
 		ft_putendl(f->name);
 	else

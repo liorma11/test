@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 12:44:10 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:18:59 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	handle(t_list *list, int is_dir)
 	{
 		if (is_dir)
 		{
-			printf("dirput\n");
-			//output_dir(trav);
+			//printf("dirput\n");
+			output_dir(trav);
 		}
 		else
 		{
@@ -40,10 +40,10 @@ void	handle(t_list *list, int is_dir)
 
 int	main(int ac, char **av)
 {
-	ac = 0;
+	//ac = 0;
 	t_ls ls;
 	create_ls(&ls);
-	parse(&ls, av);
+	parse(&ls, ac, av);
 	ls.follow = 0;
 	ft_lstsort(&(ls.errors), &cmp_asc, &get_name);
 	lssort(&ls, &ls.dirs);

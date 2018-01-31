@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 12:26:28 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:12:47 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,22 @@ void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path)
 		(int)MIN(f->stat.st_rdev) : 0;
 }
 
-void	parse(t_ls *ls, char **av)
+void	parse(t_ls *ls, int ac,  char **av)
 {
 	t_lsl f;
-	
+	int i;
+
+	i = 0;
 	while (*(++av) && *av[0] == '-')
 	{
-		opts(&ls->opts, *av);
+		 opts(&ls->opts, *av);
+		 i++;
 	}
-	if (*av == '\0')
+	ls->nof = ac - i;
+	if (*av == '\0' && ls->nof == 0)
 	{
 		//printf("searching .\n");
+		ls->nof = 1;
 		create_file(ls, &f, 1, ".", ".");
 		ft_lstadd(&(ls->dirs), ft_lstnew(&f, sizeof(t_lsl)));
 	}
