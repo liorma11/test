@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 16:24:31 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 17:39:58 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,15 @@ void	parse(t_ls *ls, int ac,  char **av)
 	{
 		//printf("searching .\n");
 		ls->nof = 1;
-		create_file(ls, &f, 1, ".", ".");
+		// ADDED STRDUPS DONT FORGET TO REMOVE IF IT DOESNT FIX THE LEAKs;
+		create_file(ls, &f, 1, ft_strdup("."), ft_strdup("."));
 		ft_lstadd(&(ls->dirs), ft_lstnew(&f, sizeof(t_lsl)));
 	}
 	while (*av)
 	{
 		//printf("searching for: %s\n", *av);
-		create_file(ls, &f, 1, *av, *av);
+		// ADDDED STRDUPS HERE DONT FORGET TO REMOVE IF IT DOENST FIX
+		create_file(ls, &f, 1, ft_strdup(*av), ft_strdup(*av));
 		av++;
 		if (!f.exists)
 		{

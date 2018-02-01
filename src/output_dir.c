@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:27:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:59:08 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 17:38:43 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	dir_read(t_list *elem)
 	t_dirent	*dirent;
 	t_lsl		new_file;
 	t_lsl		*file;
-	
+
+	// FOUND THE LEAK PROBLEM....
+	// I need to malloc in createfile, and free appropriately after... bottom is borked.	
 	//printf("read began\n");
 	file = elem->content;
 	file->dir = opendir(file->path);
@@ -76,9 +78,9 @@ void	dir_read(t_list *elem)
 			create_file(file->ls, &new_file, 0, ft_strdup(dirent->d_name),
 				ft_strfjoin(ft_strjoin(file->path, "/"), dirent->d_name));
 			ft_lstadd(&(file->files), ft_lstnew(&new_file, sizeof(t_lsl)));
-			/*if (new_file)
-				free(new_file);
-			new_file = NULL;*/
+			//if (&new_file)
+			//free(&new_file);
+			//new_file = 0;
 		}
 	}
 	file->err = (file->type == IDIR && file->dir == NULL) ? errno : 0;
