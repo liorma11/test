@@ -6,11 +6,31 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:27:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:17:45 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:59:08 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+
+void	ft_lstiter_if(t_list *lst, void (*f)(t_list *e), int (*g)(t_list *e))
+{
+	while (lst)
+	{
+		if (g(lst))
+			f(lst);
+		lst = lst->next;
+	}
+}
+
+int		no_dot_file(t_list *elem)
+{
+	t_lsl *file;
+
+	file = elem->content;
+	if (file->name[0] == '.')
+		return (0);
+	return (1);
+}
 
 char	*ft_strfjoin(char *s1, char *s2)
 {
@@ -108,14 +128,15 @@ void	output_dir(t_list *elem)
 	if (file->ls->opts.longform)
 		findlargest(file->files);
 	pdirname(elem);
-	/*if (!file->ls->options.is_all_files)
-		ft_lstiter_if(file->files, &ft_ls_show_file, &no_dot_file);
+	if (!file->ls->opts.all)
+		ft_lstiter_if(file->files, &output_item, &no_dot_file);
 	else
-		ft_lstiter(file->files, &ft_ls_show_file);
-	if (file->ls->options.is_recursive && !file->ls->options.is_all_files)
-		ft_lstiter_if(file->files, &ft_ls_show_dir, &no_dot_file);
+		ft_lstiter(file->files, &output_item);
+	if (file->ls->opts.recursive && !file->ls->opts.all)
+		ft_lstiter_if(file->files, &output_dir, &no_dot_file);
 	else
-		ft_lstiter(file->files, &ft_ls_show_dir);
+		ft_lstiter(file->files, &output_dir);
+	// free it boiiii
 	if (file->files)
-		ft_lstdel(&(file->files), &ft_ls_free_file);*/
+		ft_lstdel(&(file->files), &file_free);
 }

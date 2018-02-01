@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:18:59 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 16:02:33 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	handle(t_list *list, int is_dir)
 	if (list)
 	{
 		//printf("list exists time to free with listdel\n");
+		ft_lstdel(&list, &file_free);
 	}
 
 }

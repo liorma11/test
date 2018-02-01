@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:18:15 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:58:23 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct			s_lsl
 
 void					create_ls(t_ls *ls);
 void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path);
+void	file_free(void *content, size_t content_size);
 void	output_dir(t_list *elem);
 void					parse(t_ls *ls, int ac, char **av);
 void					eh_illegal(char opt);

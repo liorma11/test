@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:12:47 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/01/31 16:24:31 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ void	parse(t_ls *ls, int ac,  char **av)
 		 opts(&ls->opts, *av);
 		 i++;
 	}
-	ls->nof = ac - i;
+	//printf("preassign ac: %d, i: %d, nof: %d\n", ac, i, ls->nof);
+	ls->nof = (ac - i) - 1;
+	//printf("post nof %d\n", ls->nof);
 	if (*av == '\0' && ls->nof == 0)
 	{
 		//printf("searching .\n");
