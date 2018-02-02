@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:58:23 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:51:26 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct			s_lso
 	int					all;
 	int					longform;
 	int					timemod;
+	int					last_access;
 }						t_lso;
 
 typedef struct			s_ls
@@ -108,6 +109,8 @@ void					eh_illegal(char opt);
 void	ft_ennoent(t_lsl *f);
 void	ft_lstsort(t_list **list,
 	int (*cmp)(void *a_, void *b_), void *(*get_data)(t_list *e));
+void	*get_time_nano(t_list *elem);
+void	*get_time(t_list *elem);
 void	lssort(t_ls *ls, t_list **list);
 void	*get_name(t_list *elem);
 int		cmp_asc(void *a, void *b);

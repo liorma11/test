@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 12:54:51 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 13:27:48 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:53:07 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void liststuff(t_list *list)
 void unit(t_ls *ls)
 {
 	printf("\nUNIT TEST BEGINS\n");
-	printf("options selected:\nR: %d\nr: %d\na: %d\nl: %d\nt: %d\n", ls->opts.recursive, ls->opts.reverse, ls->opts.all, ls->opts.longform, ls->opts.timemod);
-	printf("\nLIST CHECK\n----------\nErrors:\n");
+	printf("options selected:\nR: %d\nr: %d\na: %d\nl: %d\nt: %d\nu: %d\nU: is dead\n", ls->opts.recursive, ls->opts.reverse, ls->opts.all, ls->opts.longform, ls->opts.timemod, ls->opts.last_access);
+	/*printf("\nLIST CHECK\n----------\nErrors:\n");
 	liststuff(ls->errors);
 	printf("\nDirectory:\n");
 	liststuff(ls->dirs);
 	printf("\nItems:\n");
-	liststuff(ls->items);
+	liststuff(ls->items);*/
 }

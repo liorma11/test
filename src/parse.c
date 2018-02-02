@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 17:39:58 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:52:23 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		isopt(char c)
 {
-	return (c == 'R' || c == 'r' || c == 'a' || c == 'l' || c == 't');
+	return (c == 'R' || c == 'r' || c == 'a' || c == 'l' || c == 't' || c == 'u');
 }
 
 void	opts(t_lso *opts, char *av)
@@ -27,7 +27,9 @@ void	opts(t_lso *opts, char *av)
 			opts->reverse = (*av == 'r') ? 1 : opts->reverse;	
 			opts->all = (*av == 'a') ? 1 : opts->all;
 			opts->longform = (*av == 'l') ? 1 : opts->longform;	
-			opts->timemod = (*av == 't') ? 1 : opts->timemod;	
+			opts->timemod = (*av == 't') ? 1 : opts->timemod;
+			if (*av == 'u')
+				opts->last_access = 1;
 		}
 		else
 			eh_illegal(*av);

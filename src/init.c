@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:42:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 15:47:56 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:52:31 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	create_opts(t_lso *o)
 	o->all = 0;
 	o->longform = 0;
 	o->timemod = 0;
+	o->last_access = 0;
 }
 
 void	create_ls(t_ls *ls)

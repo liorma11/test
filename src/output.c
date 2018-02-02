@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 18:52:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 17:25:50 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:51:11 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@ void	*get_time(t_list *elem)
 	t_lsl *file;
 
 	file = elem->content;
-	/*
-	if (file->ls->options.time_last_access)
+	if (file->ls->opts.last_access)
 		return (&file->stat.st_atime);
-	else if (file->ls->options.time_creation)
-		return (&file->stat.st_ctime);*/
 	return (&file->stat.st_mtime);
 }
 
+void	*get_time_nano(t_list *elem)
+{
+	t_lsl *file;
+
+	file = elem->content;
+	if (file->ls->opts.last_access)
+		return (&file->stat.st_atimespec.tv_nsec);
+	return (&file->stat.st_mtimespec.tv_nsec);
+}
 
 void	pdate(t_list *elem)
 {
@@ -87,11 +93,11 @@ void	psize(t_lsl *file)
 	if (file->type == ICHAR || file->type == IBLOCK)
 	{
 		ft_putchar(' ');
-		while (major_spaces < file->spaces.maj--)
+		while ((major_spaces) < file->spaces.maj-- )
 			ft_putchar(' ');
 		ft_putnbr(file->maj);
 		ft_putstr(", ");
-		while (minor_spaces < file->spaces.min--)
+		while ((minor_spaces) < file->spaces.min--)
 			ft_putchar(' ');
 		ft_putnbr(file->min);
 		ft_putchar(' ');

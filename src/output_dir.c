@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:27:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 17:38:43 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:31:01 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,9 @@ void	dir_read(t_list *elem)
 void	pdirname(t_list *elem)
 {
 	t_lsl	*file;
-	//WE ENDED HERE NFILES CHANGED TO NOF
 	file = elem->content;
-	if (!((file->ls->nof == 1 && !file->ls->fp) ||
-		(!file->root && !file->ls->opts.recursive) ||
-		(file->ls->opts.all &&
-		!file->files && file->permission)))
+	// if the number of files is 1 and its not the
+	if (!((file->ls->nof == 1 && !file->ls->fp) || (!file->root && !file->ls->opts.recursive) ||(file->ls->opts.all && !file->files && file->permission)))
 	{
 		if (file->ls->fp)
 			ft_putstr("\n");

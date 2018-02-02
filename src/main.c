@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 16:02:33 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:58:40 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,44 +19,40 @@ void	handle(t_list *list, int is_dir)
 	while (trav)
 	{
 		if (is_dir)
-		{
-			//printf("dirput\n");
 			output_dir(trav);
-		}
 		else
-		{
-			//printf("itemput\n")
 			output_item(trav);
-		}
 		trav = trav->next;
 	}
 	if (list)
-	{
-		//printf("list exists time to free with listdel\n");
 		ft_lstdel(&list, &file_free);
-	}
 
 }
 
+void sorting(t_ls ls)
+{
+	ft_lstsort(&(ls.errors), &cmp_asc, &get_name);
+	lssort(&ls, &ls.dirs);
+	lssort(&ls, &ls.items);
+}
+
+void output(t_ls ls)
+{
+	handle(ls.errors, 0);
+	if (ls.items && ls.opts.all)
+		findlargest(ls.items);
+	handle(ls.items, 0);
+	handle(ls.dirs, 1);
+}
 
 int	main(int ac, char **av)
 {
-	//ac = 0;
 	t_ls ls;
 	create_ls(&ls);
 	parse(&ls, ac, av);
 	ls.follow = 0;
-	ft_lstsort(&(ls.errors), &cmp_asc, &get_name);
-	lssort(&ls, &ls.dirs);
-	lssort(&ls, &ls.items);
-	handle(ls.errors, 0);
-	if (ls.items && ls.opts.all)
-	{
-		printf("all is called\n");
-		findlargest(ls.items);
-	}
-	handle(ls.items, 0);
-	handle(ls.dirs, 1);
+	sorting(ls);
+	output(ls);
 	//unit(&ls);
 	return (0);
 }

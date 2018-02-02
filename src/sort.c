@@ -6,11 +6,53 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 13:57:17 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/31 12:12:51 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:15:16 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+
+void	*get_elem(t_list *elem)
+{
+	return (elem);
+}
+
+int		time_asc(void *a, void *b)
+{
+	time_t	*time_a;
+	time_t	*time_b;
+	long	*nano_a;
+	long	*nano_b;
+
+	time_a = get_time((t_list *)a);
+	time_b = get_time((t_list *)b);
+	nano_a = get_time_nano((t_list *)a);
+	nano_b = get_time_nano((t_list *)b);
+	if (*time_a == *time_b)
+		return (*nano_a >= *nano_b);
+	else
+		return (*time_a > *time_b);
+}
+
+void	ft_lstrev(t_list **begin_list)
+{
+	t_list	*prev;
+	t_list	*curr;
+	t_list	*next;
+
+	if (begin_list == NULL)
+		return ;
+	prev = NULL;
+	curr = *begin_list;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	*begin_list = prev;
+}
 
 static void	lslsplit(t_list *src, t_list **head, t_list **back)
 {
@@ -82,11 +124,9 @@ void	ft_lstsort(t_list **list,
 
 void	lssort(t_ls *ls, t_list **list)
 {
-	// remember to un null this...
-	ls = NULL;
 	ft_lstsort(list, &cmp_asc, &get_name);
-	//if (ls->options.is_ordered_by_time)
-	//	ft_lstsort(list, &time_asc, &get_elem);
-	//if (ls->options.is_reverse)
-	//	ft_lstrev(list);
+	if (ls->opts.timemod)
+		ft_lstsort(list, &time_asc, &get_elem);
+	if (ls->opts.reverse)
+		ft_lstrev(list);
 }
