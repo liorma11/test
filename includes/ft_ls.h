@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/01 17:51:26 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 00:25:29 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct			s_lsl
 	t_stat				stat;
 	t_ls				*ls;
 	t_lss				spaces;
-	// add files at some point
 	DIR					*dir;
 	t_list				*files;
 	int					maj;
@@ -101,10 +100,11 @@ typedef struct			s_lsl
 }						t_lsl;
 
 void					create_ls(t_ls *ls);
-void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path);
+void	create_one(/*t_ls *ls,*/ t_lsl *f, int root, char *name, char *path);
+void	create_two(t_lsl *f, t_ls *ls);
 void	file_free(void *content, size_t content_size);
 void	output_dir(t_list *elem);
-void					parse(t_ls *ls, int ac, char **av);
+void					parse(t_ls *ls, int ac, char **av, int i);
 void					eh_illegal(char opt);
 void	ft_ennoent(t_lsl *f);
 void	ft_lstsort(t_list **list,
@@ -117,6 +117,11 @@ int		cmp_asc(void *a, void *b);
 void	output_item(t_list *list);
 void	findlargest(t_list *list);
 long long	set_total(t_list *elem);
+
+/* OPTIONS */
+int		isopt(char c);
+void	opts(t_lso *opts, char *av);
+
 // delet this
 void unit(t_ls *ls);
 void liststuff(t_list *list);

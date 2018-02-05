@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/04 19:41:48 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 00:16:45 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		main(int ac, char **av)
 	t_ls ls;
 
 	create_ls(&ls);
-	parse(&ls, ac, av);
+	parse(&ls, ac, av, 0);
 	ls.follow = 0;
 	sorting(ls);
 	output(ls);

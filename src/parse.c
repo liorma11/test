@@ -6,36 +6,11 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:44:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/04 20:02:16 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 01:18:29 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-
-int		isopt(char c)
-{
-	return (c == 'R' || c == 'r' || c == 'a' ||
-			c == 'l' || c == 't' || c == 'u');
-}
-
-void	opts(t_lso *opts, char *av)
-{
-	while (*(++av))
-	{
-		if (isopt(*av))
-		{
-			opts->recursive = (*av == 'R') ? 1 : opts->recursive;
-			opts->reverse = (*av == 'r') ? 1 : opts->reverse;
-			opts->all = (*av == 'a') ? 1 : opts->all;
-			opts->longform = (*av == 'l') ? 1 : opts->longform;
-			opts->timemod = (*av == 't') ? 1 : opts->timemod;
-			if (*av == 'u')
-				opts->last_access = 1;
-		}
-		else
-			eh_illegal(*av);
-	}
-}
 
 void	space_init(t_lss *s)
 {
@@ -69,19 +44,23 @@ void	set_symlink(t_lsl *f)
 	}
 }
 
-void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path)
+void	create_one(t_lsl *f, int root, char *name, char *path)
 {
-	t_lss spaces;
-
-	space_init(&spaces);
 	f->name = name;
 	f->path = path;
 	f->files = NULL;
 	f->root = root;
 	f->exists = (lstat(path, &f->stat) != -1);
 	f->type = 0;
-	f->ls = ls;
 	f->type = f->stat.st_mode & S_IFMT;
+}
+
+void	create_two(t_lsl *f, t_ls *ls)
+{
+	t_lss spaces;
+
+	space_init(&spaces);
+	f->ls = ls;
 	set_symlink(f);
 	f->spaces = spaces;
 	f->owner = (getpwuid(f->stat.st_uid)) ?
@@ -97,27 +76,24 @@ void	create_file(t_ls *ls, t_lsl *f, int root, char *name, char *path)
 		(int)MIN(f->stat.st_rdev) : 0;
 }
 
-void	parse(t_ls *ls, int ac, char **av)
+void	parse(t_ls *ls, int ac, char **av, int i)
 {
 	t_lsl	f;
-	int		i;
 
-	i = 0;
-	while (*(++av) && *av[0] == '-')
-	{
+	while (*(++av) && *av[0] == '-' && ft_strcmp(*av, "-") != 0 && ++i)
 		opts(&ls->opts, *av);
-		i++;
-	}
 	ls->nof = (ac - i) - 1;
 	if (*av == '\0' && ls->nof == 0)
 	{
 		ls->nof = 1;
-		create_file(ls, &f, 1, ft_strdup("."), ft_strdup("."));
+		create_one(&f, 1, ft_strdup("."), ft_strdup("."));
+		create_two(&f, ls);
 		ft_lstadd(&(ls->dirs), ft_lstnew(&f, sizeof(t_lsl)));
 	}
 	while (*av)
 	{
-		create_file(ls, &f, 1, ft_strdup(*av), ft_strdup(*av));
+		create_one(&f, 1, ft_strdup(*av), ft_strdup(*av));
+		create_two(&f, ls);
 		av++;
 		if (!f.exists)
 			ft_lstadd(&(ls->errors), ft_lstnew(&f, sizeof(t_lsl)));

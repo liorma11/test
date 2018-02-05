@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:27:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/01 17:31:01 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/04 23:20:55 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void	dir_read(t_list *elem)
 	{
 		if (dirent->d_name[0] != '.' || file->ls->opts.all)
 		{
-			create_file(file->ls, &new_file, 0, ft_strdup(dirent->d_name),
+			create_one(/*file->ls,*/ &new_file, 0, ft_strdup(dirent->d_name),
 				ft_strfjoin(ft_strjoin(file->path, "/"), dirent->d_name));
+			create_two(&new_file, file->ls);
 			ft_lstadd(&(file->files), ft_lstnew(&new_file, sizeof(t_lsl)));
 			//if (&new_file)
 			//free(&new_file);

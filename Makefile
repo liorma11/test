@@ -6,7 +6,7 @@
 #    By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/23 20:34:48 by bvautour          #+#    #+#              #
-#    Updated: 2018/01/31 15:59:19 by bvautour         ###   ########.fr        #
+#    Updated: 2018/02/05 00:26:22 by bvautour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ft_ls
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 FILES = main.c init.c parse.c error.c sort.c compare.c retrieve.c find.c \
-		output.c output_dir.c free.c unit.c 
+		output.c output_dir.c free.c options.c unit.c 
 SRC = $(addprefix src/, $(FILES))
 OBJ = $(addprefix obj/, $(FILES:.c=.o))
 
