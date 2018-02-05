@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/01 17:58:40 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/04 19:28:55 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	handle(t_list *list, int is_dir)
 {
 	t_list *trav;
+
 	trav = list;
 	while (trav)
 	{
@@ -26,17 +27,16 @@ void	handle(t_list *list, int is_dir)
 	}
 	if (list)
 		ft_lstdel(&list, &file_free);
-
 }
 
-void sorting(t_ls ls)
+void	sorting(t_ls ls)
 {
 	ft_lstsort(&(ls.errors), &cmp_asc, &get_name);
 	lssort(&ls, &ls.dirs);
 	lssort(&ls, &ls.items);
 }
 
-void output(t_ls ls)
+void	output(t_ls ls)
 {
 	handle(ls.errors, 0);
 	if (ls.items && ls.opts.all)
@@ -45,14 +45,14 @@ void output(t_ls ls)
 	handle(ls.dirs, 1);
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_ls ls;
+
 	create_ls(&ls);
 	parse(&ls, ac, av);
 	ls.follow = 0;
 	sorting(ls);
 	output(ls);
-	//unit(&ls);
 	return (0);
 }
