@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 10:05:55 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 00:16:45 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 14:56:54 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handle(t_list *list, int is_dir)
 
 void	sorting(t_ls ls)
 {
-	ft_lstsort(&(ls.errors), &cmp_asc, &get_name);
+	sort_list(&(ls.errors), &ascending_alpha, &get_name);
 	lssort(&ls, &ls.dirs);
 	lssort(&ls, &ls.items);
 }

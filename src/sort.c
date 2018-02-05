@@ -6,35 +6,13 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 13:57:17 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/01 17:15:16 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 14:56:26 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-void	*get_elem(t_list *elem)
-{
-	return (elem);
-}
-
-int		time_asc(void *a, void *b)
-{
-	time_t	*time_a;
-	time_t	*time_b;
-	long	*nano_a;
-	long	*nano_b;
-
-	time_a = get_time((t_list *)a);
-	time_b = get_time((t_list *)b);
-	nano_a = get_time_nano((t_list *)a);
-	nano_b = get_time_nano((t_list *)b);
-	if (*time_a == *time_b)
-		return (*nano_a >= *nano_b);
-	else
-		return (*time_a > *time_b);
-}
-
-void	ft_lstrev(t_list **begin_list)
+static void		reverse_list(t_list **begin_list)
 {
 	t_list	*prev;
 	t_list	*curr;
@@ -54,7 +32,7 @@ void	ft_lstrev(t_list **begin_list)
 	*begin_list = prev;
 }
 
-static void	lslsplit(t_list *src, t_list **head, t_list **back)
+static void		lslsplit(t_list *src, t_list **head, t_list **back)
 {
 	t_list *fast;
 	t_list *slow;
@@ -106,7 +84,7 @@ static t_list	*remerge(t_list *a, t_list *b,
 	return (result);
 }
 
-void	ft_lstsort(t_list **list,
+void			sort_list(t_list **list,
 	int (*cmp)(void *a_, void *b_), void *(*get_data)(t_list *e))
 {
 	t_list	*head;
@@ -117,16 +95,16 @@ void	ft_lstsort(t_list **list,
 	if ((head == NULL) || (head->next == NULL))
 		return ;
 	lslsplit(head, &a, &b);
-	ft_lstsort(&a, cmp, get_data);
-	ft_lstsort(&b, cmp, get_data);
+	sort_list(&a, cmp, get_data);
+	sort_list(&b, cmp, get_data);
 	*list = remerge(a, b, cmp, get_data);
 }
 
-void	lssort(t_ls *ls, t_list **list)
+void			lssort(t_ls *ls, t_list **list)
 {
-	ft_lstsort(list, &cmp_asc, &get_name);
+	sort_list(list, &ascending_alpha, &get_name);
 	if (ls->opts.timemod)
-		ft_lstsort(list, &time_asc, &get_elem);
+		sort_list(list, &ascending_time, &get_elem);
 	if (ls->opts.reverse)
-		ft_lstrev(list);
+		reverse_list(list);
 }

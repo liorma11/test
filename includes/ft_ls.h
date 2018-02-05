@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 00:25:29 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 14:31:00 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,25 +99,40 @@ typedef struct			s_lsl
 	int					min;
 }						t_lsl;
 
+/* Struct Creation */
 void					create_ls(t_ls *ls);
-void	create_one(/*t_ls *ls,*/ t_lsl *f, int root, char *name, char *path);
-void	create_two(t_lsl *f, t_ls *ls);
-void	file_free(void *content, size_t content_size);
-void	output_dir(t_list *elem);
+void					create_one(t_lsl *f, int root, char *name, char *path);
+void					create_two(t_lsl *f, t_ls *ls);
+
+
 void					parse(t_ls *ls, int ac, char **av, int i);
+/* Errors */
 void					eh_illegal(char opt);
-void	ft_ennoent(t_lsl *f);
-void	ft_lstsort(t_list **list,
-	int (*cmp)(void *a_, void *b_), void *(*get_data)(t_list *e));
-void	*get_time_nano(t_list *elem);
-void	*get_time(t_list *elem);
-void	lssort(t_ls *ls, t_list **list);
-void	*get_name(t_list *elem);
-int		cmp_asc(void *a, void *b);
-void	output_item(t_list *list);
+void					ft_ennoent(t_lsl *f);
+
+/* SORTING */
+void					sort_list(t_list **list,
+					int (*cmp)(void *a_, void *b_), void *(*get_data)(t_list *e));
+void					lssort(t_ls *ls, t_list **list);
+
+/* Retrieve */
+void					*get_name(t_list *elem);
+void					*get_elem(t_list *elem);
+void					*get_time_nano(t_list *elem);
+void					*get_time(t_list *elem);
+/* Comparison*/
+int		ascending_alpha(void *a, void *b);
+int		ascending_time(void *a, void *b);
+
+/* Spacing Funcs */
+
 void	findlargest(t_list *list);
 long long	set_total(t_list *elem);
 
+/* Output */
+void					output_item(t_list *list);
+void					file_free(void *content, size_t content_size);
+void					output_dir(t_list *elem);
 /* OPTIONS */
 int		isopt(char c);
 void	opts(t_lso *opts, char *av);

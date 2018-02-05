@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:53:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/01/29 19:15:38 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 14:57:11 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	eh_illegal(char opt)
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(opt, 2);
 	ft_putchar_fd('\n', 2);
-	ft_puterr("usage: ls [-Rralt] [file ...]");
+	ft_puterr("usage: ls [-Rraltu] [file ...]");
 	exit(1);
 }
