@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 16:36:23 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:37:35 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:58:31 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_lstiterc(t_list *lst, void (*f)(t_list *e), int (*g)(t_list *e))
 	}
 }
 
-int		no_dot_file(t_list *elem)
+int		is_root(t_list *elem)
 {
 	t_lsl *file;
 

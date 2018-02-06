@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:27:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:42:18 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:59:27 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		is_walk(t_lsl *file)
 	return (0);
 }
 
-static void	dir_read(t_list *elem)
+static void		dir_read(t_list *elem)
 {
 	t_dirent	*dirent;
 	t_lsl		new_file;
@@ -54,9 +54,10 @@ static void	dir_read(t_list *elem)
 	lssort(file->ls, &(file->files));
 }
 
-static void	pdirname(t_list *elem)
+static void		pdirname(t_list *elem)
 {
 	t_lsl	*file;
+
 	file = elem->content;
 	if (!((file->ls->nof == 1 && !file->ls->fp) ||
 		(!file->root && !file->ls->opts.recursive) ||
@@ -79,7 +80,7 @@ static void	pdirname(t_list *elem)
 	}
 }
 
-void	output_dir(t_list *elem)
+void			output_dir(t_list *elem)
 {
 	t_lsl *file;
 
@@ -92,11 +93,11 @@ void	output_dir(t_list *elem)
 		findlargest(file->files);
 	pdirname(elem);
 	if (!file->ls->opts.all)
-		ft_lstiterc(file->files, &output_item, &no_dot_file);
+		ft_lstiterc(file->files, &output_item, &is_root);
 	else
 		ft_lstiter(file->files, &output_item);
 	if (file->ls->opts.recursive && !file->ls->opts.all)
-		ft_lstiterc(file->files, &output_dir, &no_dot_file);
+		ft_lstiterc(file->files, &output_dir, &is_root);
 	else
 		ft_lstiter(file->files, &output_dir);
 	if (file->files)

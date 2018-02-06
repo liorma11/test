@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:41:16 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 17:16:50 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,19 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <pwd.h>
-# include <uuid/uuid.h>
 # include <grp.h>
-# include <sys/xattr.h>
 # include <time.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
-# define NLIMIT 1024
 # define MONTH(m)	((m) * 30 * 24 * 60 * 60)
 # define MAJ(m)	((__int32_t)(((__uint32_t)(m)) >> 24) & 0xff)
 # define MIN(m)	((__int32_t)((m) & 0xffffff))
-typedef struct stat	t_stat;
+
+typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 
-enum	e_ftype
+enum					e_ftype
 {
 	IFILE = S_IFREG,
 	IDIR = S_IFDIR,
@@ -42,8 +40,6 @@ enum	e_ftype
 	ILINK = S_IFLNK,
 	ISOCK = S_IFSOCK
 };
-
-
 
 typedef struct			s_lso
 {
@@ -75,7 +71,7 @@ typedef struct			s_lss
 	int					size;
 	int					maj;
 	int					min;
-	long long			total;	
+	long long			total;
 }						t_lss;
 
 typedef struct			s_lsl
@@ -99,60 +95,49 @@ typedef struct			s_lsl
 	int					min;
 }						t_lsl;
 
-/* Struct Creation */
 void					create_ls(t_ls *ls);
 void					create_one(t_lsl *f, int root, char *name, char *path);
 void					create_two(t_lsl *f, t_ls *ls);
 
-
 void					parse(t_ls *ls, int ac, char **av, int i);
-/* Errors */
+
 void					eh_permissions(t_lsl *f);
 void					eh_illegal(char opt);
 void					ft_ennoent(t_lsl *f);
 
-/* SORTING */
 void					sort_list(t_list **list,
-					int (*cmp)(void *a_, void *b_), void *(*get_data)(t_list *e));
+		int (*cmp)(void *a_, void *b_), void *(*get_data)(t_list *e));
 void					lssort(t_ls *ls, t_list **list);
 
-/* Retrieve */
 void					*get_name(t_list *elem);
 void					*get_elem(t_list *elem);
 void					*get_time_micro(t_list *elem);
 void					*get_time(t_list *elem);
-/* Comparison*/
-int		ascending_alpha(void *a, void *b);
-int		ascending_time(void *a, void *b);
 
-/* Spacing Funcs */
+int						ascending_alpha(void *a, void *b);
+int						ascending_time(void *a, void *b);
 
-void	findlargest(t_list *list);
-long long	set_total(t_list *elem);
-int		link_size(t_list *l);
-int	owner_size(t_list *elem);
-int	group_size(t_list *elem);
-int	min_size(t_list *elem);
-int	maj_size(t_list *elem);
-/* Permissions */
-void	permissions(t_lsl *file);
-void	perm_exec(t_lsl *file, int mode_a, int mode_b, char *def);
+void					findlargest(t_list *list);
+long long				set_total(t_list *elem);
+int						link_size(t_list *l);
+int						owner_size(t_list *elem);
+int						group_size(t_list *elem);
+int						min_size(t_list *elem);
+int						maj_size(t_list *elem);
 
-/* Output */
+void					permissions(t_lsl *file);
+void					perm_exec(t_lsl *file, int mode_a,
+		int mode_b, char *def);
+
 void					output_item(t_list *list);
 void					file_free(void *content, size_t content_size);
 void					output_dir(t_list *elem);
-/* OPTIONS */
-int		isopt(char c);
-void	opts(t_lso *opts, char *av);
 
-/* Helpers */
+int						isopt(char c);
+void					opts(t_lso *opts, char *av);
 
-void	ft_lstiterc(t_list *lst, void (*f)(t_list *e), int (*g)(t_list *e));
-int		no_dot_file(t_list *elem);
-char	*ft_strjoinfree(char *s1, char *s2);
-// delet this
-void unit(t_ls *ls);
-void liststuff(t_list *list);
-
+void					ft_lstiterc(t_list *lst, void (*f)(t_list *e),
+		int (*g)(t_list *e));
+int						is_root(t_list *elem);
+char					*ft_strjoinfree(char *s1, char *s2);
 #endif

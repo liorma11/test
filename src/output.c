@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 18:52:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:20:14 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:52:03 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	psize(t_lsl *file)
 	if (file->type == ICHAR || file->type == IBLOCK)
 	{
 		ft_putchar(' ');
-		while ((major_spaces) < file->spaces.maj-- )
+		while ((major_spaces) < file->spaces.maj--)
 			ft_putchar(' ');
 		ft_putnbr(file->maj);
 		ft_putstr(", ");

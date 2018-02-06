@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:28:07 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:13:44 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:48:44 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ long long	set_total(t_list *elem)
 	return (total);
 }
 
-int		file_size(t_list *elem)
+int			file_size(t_list *elem)
 {
 	t_lsl	*file;
 	int		len;
@@ -42,16 +42,16 @@ int		file_size(t_list *elem)
 	return (0);
 }
 
-int		set_spaces(t_list *list, int (func)(t_list *l))
+int			set_spaces(t_list *list, int (func)(t_list *l))
 {
-	int spaces;
-	int largest;
-	t_list *trav;
-	t_lsl *f;
+	int		spaces;
+	int		largest;
+	t_list	*trav;
+	t_lsl	*f;
 
 	largest = 0;
 	trav = list;
-	while(trav)
+	while (trav)
 	{
 		f = trav->content;
 		if ((f->name[0] != '.' || f->ls->opts.all))
@@ -65,11 +65,11 @@ int		set_spaces(t_list *list, int (func)(t_list *l))
 	return (largest);
 }
 
-void	findlargest(t_list *list)
+void		findlargest(t_list *list)
 {
 	t_lsl	*f;
 	t_list	*trav;
-	
+
 	trav = list;
 	while (trav)
 	{
@@ -81,5 +81,5 @@ void	findlargest(t_list *list)
 		f->spaces.min = set_spaces(list, &min_size);
 		f->spaces.size = set_spaces(list, &file_size);
 		trav = trav->next;
-	}		
+	}
 }

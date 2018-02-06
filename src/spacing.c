@@ -6,13 +6,13 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 16:06:44 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:08:12 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:44:35 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-int		link_size(t_list *l)
+int	link_size(t_list *l)
 {
 	int		len;
 	t_lsl	*f;

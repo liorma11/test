@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:42:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:14:03 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:46:24 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	create_opts(t_lso *o)
 void	create_ls(t_ls *ls)
 {
 	t_lso opts;
+
 	ls->errors = NULL;
 	ls->items = NULL;
 	ls->dirs = NULL;

@@ -6,14 +6,13 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:56:10 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 16:13:55 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:52:41 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-
-void	ft_ls_free_file_one(t_lsl *file)
+static void	struct_free(t_lsl *file)
 {
 	if (!file)
 		return ;
@@ -31,11 +30,11 @@ void	ft_ls_free_file_one(t_lsl *file)
 		free(file);
 }
 
-void	file_free(void *content, size_t content_size)
+void		file_free(void *content, size_t content_size)
 {
 	t_lsl *file;
 
 	file = content;
-	ft_ls_free_file_one(file);
+	struct_free(file);
 	content_size = 0;
 }
