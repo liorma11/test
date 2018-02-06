@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 17:53:59 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 14:57:11 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:23:21 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	ft_ennoent(t_lsl *f)
 	ft_puterr(": No such file or directory");
 	if (f->name[0] == '\0')
 		exit(1);
+}
+
+void	eh_permissions(t_lsl *file)
+{
+	ft_putstr_fd("ls: ", 2);
+	ft_putstr_fd(file->name, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(file->err), 2);		
 }
 
 void	eh_illegal(char opt)

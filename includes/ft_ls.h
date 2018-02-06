@@ -6,7 +6,7 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:48:33 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 14:31:00 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:41:16 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void					create_two(t_lsl *f, t_ls *ls);
 
 void					parse(t_ls *ls, int ac, char **av, int i);
 /* Errors */
+void					eh_permissions(t_lsl *f);
 void					eh_illegal(char opt);
 void					ft_ennoent(t_lsl *f);
 
@@ -118,7 +119,7 @@ void					lssort(t_ls *ls, t_list **list);
 /* Retrieve */
 void					*get_name(t_list *elem);
 void					*get_elem(t_list *elem);
-void					*get_time_nano(t_list *elem);
+void					*get_time_micro(t_list *elem);
 void					*get_time(t_list *elem);
 /* Comparison*/
 int		ascending_alpha(void *a, void *b);
@@ -128,6 +129,14 @@ int		ascending_time(void *a, void *b);
 
 void	findlargest(t_list *list);
 long long	set_total(t_list *elem);
+int		link_size(t_list *l);
+int	owner_size(t_list *elem);
+int	group_size(t_list *elem);
+int	min_size(t_list *elem);
+int	maj_size(t_list *elem);
+/* Permissions */
+void	permissions(t_lsl *file);
+void	perm_exec(t_lsl *file, int mode_a, int mode_b, char *def);
 
 /* Output */
 void					output_item(t_list *list);
@@ -137,6 +146,11 @@ void					output_dir(t_list *elem);
 int		isopt(char c);
 void	opts(t_lso *opts, char *av);
 
+/* Helpers */
+
+void	ft_lstiterc(t_list *lst, void (*f)(t_list *e), int (*g)(t_list *e));
+int		no_dot_file(t_list *elem);
+char	*ft_strjoinfree(char *s1, char *s2);
 // delet this
 void unit(t_ls *ls);
 void liststuff(t_list *list);

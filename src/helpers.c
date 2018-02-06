@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compare.c                                          :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 18:43:05 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/05 15:54:59 by bvautour         ###   ########.fr       */
+/*   Created: 2018/02/05 16:36:23 by bvautour          #+#    #+#             */
+/*   Updated: 2018/02/05 16:37:35 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-int		ascending_alpha(void *a, void *b)
+void	ft_lstiterc(t_list *lst, void (*f)(t_list *e), int (*g)(t_list *e))
 {
-	return (ft_strcmp((char *)a, (char *)b) < 0);
+	while (lst)
+	{
+		if (g(lst))
+			f(lst);
+		lst = lst->next;
+	}
 }
 
-int		ascending_time(void *a, void *b)
+int		no_dot_file(t_list *elem)
 {
-	time_t	*time_a;
-	time_t	*time_b;
-	long	*mica;
-	long	*micb;
+	t_lsl *file;
 
-	time_a = get_time((t_list *)a);
-	time_b = get_time((t_list *)b);
-	mica = get_time_micro((t_list *)a);
-	micb = get_time_micro((t_list *)b);
-	if (*time_a == *time_b)
-		return (*mica >= *micb);
-	else
-		return (*time_a > *time_b);
+	file = elem->content;
+	if (file->name[0] == '.')
+		return (0);
+	return (1);
+}
+
+char	*ft_strjoinfree(char *s1, char *s2)
+{
+	char *new_str;
+
+	new_str = ft_strjoin(s1, s2);
+	if (s1)
+		free(s1);
+	return (new_str);
 }

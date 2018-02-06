@@ -6,31 +6,11 @@
 /*   By: bvautour <vautour.brad@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 18:52:18 by bvautour          #+#    #+#             */
-/*   Updated: 2018/02/01 17:51:11 by bvautour         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:20:14 by bvautour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-
-void	*get_time(t_list *elem)
-{
-	t_lsl *file;
-
-	file = elem->content;
-	if (file->ls->opts.last_access)
-		return (&file->stat.st_atime);
-	return (&file->stat.st_mtime);
-}
-
-void	*get_time_nano(t_list *elem)
-{
-	t_lsl *file;
-
-	file = elem->content;
-	if (file->ls->opts.last_access)
-		return (&file->stat.st_atimespec.tv_nsec);
-	return (&file->stat.st_mtimespec.tv_nsec);
-}
 
 void	pdate(t_list *elem)
 {
@@ -112,38 +92,6 @@ void	psize(t_lsl *file)
 	}
 }
 
-void	perm_exec(t_lsl *file, int mode_a, int mode_b, char *def)
-{
-	if (!(file->stat.st_mode & mode_a) && (file->stat.st_mode & mode_b))
-		ft_putchar(def[0]);
-	else if ((file->stat.st_mode & mode_a) && (file->stat.st_mode & mode_b))
-		ft_putchar(def[1]);
-	else
-		ft_putchar((file->stat.st_mode & mode_a) ? def[2] : def[3]);
-}
-
-void	permissions(t_lsl *file)
-{
-	ft_putstr(file->type == IDIR ? "d" : "");
-	ft_putstr(file->type == IFIFO ? "p" : "");
-	ft_putstr(file->type == ICHAR ? "c" : "");
-	ft_putstr(file->type == IBLOCK ? "b" : "");
-	ft_putstr(file->type == IFILE ? "-" : "");
-	ft_putstr(file->type == ILINK ? "l" : "");
-	ft_putstr(file->type == ISOCK ? "s" : "");
-	ft_putchar((file->stat.st_mode & S_IRUSR) ? 'r' : '-');
-	ft_putchar((file->stat.st_mode & S_IWUSR) ? 'w' : '-');
-	perm_exec(file, S_IXUSR, S_ISUID, "Ssx-");
-	ft_putchar((file->stat.st_mode & S_IRGRP) ? 'r' : '-');
-	ft_putchar((file->stat.st_mode & S_IWGRP) ? 'w' : '-');
-	perm_exec(file, S_IXGRP, S_ISGID, "Ssx-");
-	ft_putchar((file->stat.st_mode & S_IROTH) ? 'r' : '-');
-	ft_putchar((file->stat.st_mode & S_IWOTH) ? 'w' : '-');
-	perm_exec(file, S_IXOTH, S_ISVTX, "Ttx-");
-	ft_putstr("  ");
-}
-
-// need to determine spaces during directory read...
 void	output_item(t_list *list)
 {
 	t_lsl *f;
@@ -156,20 +104,12 @@ void	output_item(t_list *list)
 		ft_putendl(f->name);
 	else
 	{
-		//printf("LONGFORM OUTPUT BEGINS:\n\n");
-		//permissions !DONE
 		permissions(f);
-		//number of links !DONE
 		pint(f->stat.st_nlink, f->spaces.link);
-		//owner
 		strsp(f->owner, f->spaces.owner);
-		//group
 		strsp(f->group, f->spaces.group);
-		//size NEED TO HANDLE MIN AND MAJ before.... size.
 		psize(f);
-		//time
 		pdate(list);
-		//name
 		ft_putstr(f->name);
 		if (f->type == ILINK)
 		{
@@ -177,6 +117,5 @@ void	output_item(t_list *list)
 			ft_putstr(f->link);
 		}
 		ft_putchar('\n');
-		//printf("\nEND OF OUTPUT\n");	
 	}
 }
